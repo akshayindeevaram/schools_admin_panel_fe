@@ -7,9 +7,9 @@ import App from './App';
 
 ReactDOM.render(
   <div>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
       <App />
-    {/* </Provider> */}
+    </Provider>
   </div>,
 
   document.getElementById("root")

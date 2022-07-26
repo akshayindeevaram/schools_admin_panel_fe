@@ -51,30 +51,13 @@ console.log(data&&data,"gggggggggggggggggggggggggggggggggggggggg");
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.phone_number}</TableCell>
               <TableCell>
-                {/* <Link to={`useradmission/123`}>View</Link> */}
-                <Link to="useradmission/2">{"View"}</Link>
+                <Link to={`useradmission/${row.id}`}>{"View"}</Link>
               </TableCell>
             </TableRow>
            ))}
         </TableBody>
       </Table>
     </TableContainer>
-
-
-
-
-
-        {/* <table>
-            <tr>
-                <th>Student name</th>
-                <th>Phone number</th>
-                <th>Action</th>
-            </tr>
-            
-        </table> */}
-      {/* <h1 className="main_heading">{data&&data[0].main_heading}</h1>
-      <div className='main_details'>{data&&data[0].description}</div> */}
-
     </div>
   )
 }

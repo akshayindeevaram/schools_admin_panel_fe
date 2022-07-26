@@ -14,33 +14,33 @@ import { useParams } from 'react-router-dom';
 
 function ViewUserAdmission({viewAdmissionData, fetchViewAdmission}) {
   const {id} =  useParams()
-//   console.log(params);
 const [userdetails, setuserdetails] = useState([])
 const data = viewAdmissionData;
-console.log(data&&data,"gggggggggggggggggggggggggggggggggggggggg");
+// console.log(data&&data,"gggggggggggggggggggggggggggggggggggggggg");
 
 console.log("hai");
 function fetchuser(){
-    
+   
    const [datauser] =  data?.filter(item =>{
     return item.id == id
-    
-})
-console.log(datauser,"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-}
-useEffect(() => {
 
+  }
+   )
+  //  console.log(datauser,"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+    setuserdetails(datauser);
+}
+
+useEffect(() => {
     fetchViewAdmission()
     fetchuser()
-    setuserdetails()
   }, [])
 
-  console.log(viewAdmissionData,"ccccccccccccccccccccccccc");
+  // console.log(viewAdmissionData,"ccccccccccccccccccccccccc");
 
   return (
     <div className='viewuser'>
        <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table >
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
@@ -53,20 +53,21 @@ useEffect(() => {
         <TableBody>
 
             
-          {viewAdmissionData?.map((row,id) => (
+          {/* {viewAdmissionData?.map((row,id) => ( */}
             <TableRow
-              key={"row.id"}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              // key={"row.id"}
+              // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.phone_number}</TableCell>
-              <TableCell>{row.qualification}</TableCell>
-              <TableCell>{row.result}</TableCell>
+              {/* <TableCell component="th" scope="row">
+                {userdetails.id}
+              </TableCell> */}
+              <TableCell>{userdetails?.id}</TableCell>
+              <TableCell>{userdetails?.name}</TableCell>
+              <TableCell>{userdetails?.phone_number}</TableCell>
+              <TableCell>{userdetails?.qualification}</TableCell>
+              <TableCell>{userdetails?.result}</TableCell>
             </TableRow>
-          ))}
+          {/* ))} */}
         </TableBody>
       </Table>
     </TableContainer>
