@@ -1,34 +1,35 @@
 import {
-	FETCH_VIEW_ADMISSION_FAILURE,
-	FETCH_VIEW_ADMISSION_REQUEST,
-	FETCH_VIEW_ADMISSION_SUCCESS,
-} from '../viewAdmissionTypes';
+	FETCH_VIEW_USER_ADMISSION_FAILURE,
+	FETCH_VIEW_USER_ADMISSION_REQUEST,
+	FETCH_VIEW_USER_ADMISSION_SUCCESS,
+} from '../viewUserAdmissionTypes';
 
 const initialState = {
 	loading: false,
-	viewAdmission: [],
+	viewUserAdmission: [],
 	error: '',
 };
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_VIEW_ADMISSION_REQUEST:
+		case FETCH_VIEW_USER_ADMISSION_REQUEST:
 			return {
 				...state,
 				loading: true,
 			};
-		case FETCH_VIEW_ADMISSION_SUCCESS:
+		case FETCH_VIEW_USER_ADMISSION_SUCCESS:
 			// console.log(action.payload);
+
 			return {
 				...state,
 				loading: false,
-				viewAdmission: action.payload,
+				viewUserAdmission: action.payload,
 				error: '',
 			};
-		case FETCH_VIEW_ADMISSION_FAILURE:
+		case FETCH_VIEW_USER_ADMISSION_FAILURE:
 			return {
 				loading: false,
-				viewAdmission: [],
+				viewUserAdmission: [],
 				error: action.payload,
 			};
 

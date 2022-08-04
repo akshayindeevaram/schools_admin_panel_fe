@@ -1,61 +1,59 @@
-import axios from "axios";
+import axios from 'axios';
 import {
-  FETCH_VIEW_ADMISSION_FAILURE,
-  FETCH_VIEW_ADMISSION_REQUEST,
-  FETCH_VIEW_ADMISSION_SUCCESS,
-  FETCH_VIEW_ADMISSION_DATA,
-} from "../viewAdmissionTypes";
+	FETCH_VIEW_ADMISSION_FAILURE,
+	FETCH_VIEW_ADMISSION_REQUEST,
+	FETCH_VIEW_ADMISSION_SUCCESS,
+} from '../viewAdmissionTypes';
 
 export const fetchViewAdmissionRequest = () => {
-  return {
-    type: FETCH_VIEW_ADMISSION_REQUEST,
-  };
+	return {
+		type: FETCH_VIEW_ADMISSION_REQUEST,
+	};
 };
 
 export const fetchViewAdmissionSuccess = (viewAdmission) => {
-  return {
-    type: FETCH_VIEW_ADMISSION_SUCCESS,
-    payload:viewAdmission
-  };
+	return {
+		type: FETCH_VIEW_ADMISSION_SUCCESS,
+		payload: viewAdmission,
+	};
 };
+
 export const fetchViewAdmissionFailure = (error) => {
-  return {
-    type: FETCH_VIEW_ADMISSION_FAILURE,
-    payload:error
-  };
+	return {
+		type: FETCH_VIEW_ADMISSION_FAILURE,
+		payload: error,
+	};
 };
 
 export const fetchViewAdmission = () => {
+	return (dispatch) => {
+		axios({
+			method: 'get',
+			url: 'http://localhost:5000/api/v1/viewadmission',
+			// url: `http://localhost:5000/api/v1/viewadmission?id=${id}`,
+		})
+			.then((response) => {
+				// console.log(response,"qqqqqqqqqqqqqqqqqqq");
 
-  return (dispatch) => {
-    axios({
-      method: 'get',
-      url: "http://localhost:5000/api/v1/viewadmission",
-    })
-      .then((response) => {
-      
-        console.log(response,"qqqqqqqqqqqqqqqqqqq");
-        
-        const viewAdmission = response.data;
-        dispatch(setViewAdmission);
-        console.log("vvvvvvvvvvvvvv", viewAdmission);
-        
-        dispatch(fetchViewAdmissionSuccess(viewAdmission));
-      })
-      .catch((error) => {
-        console.log(error,"vvvvvvvvvvddddddddddddddddddddddd");
-        
-        const errorMsg = error.message;
-        dispatch(fetchViewAdmissionFailure(errorMsg));
-      });
-  };
-}
+				const viewAdmission = response.data;
 
+				// console.log("vvvvvvvvvvvvvv", viewAdmission);
 
-export const setViewAdmission = (data)=>{
-  return {
-        type: FETCH_VIEW_ADMISSION_DATA,
-        payload: data
-}
-}
-// console.log(setAbout,"aaa");
+				dispatch(
+					fetchViewAdmissionSuccess(
+						viewAdmission,
+					),
+				);
+			})
+			.catch((error) => {
+				// console.log(error,"vvvvvvvvvvddddddddddddddddddddddd");
+
+				const errorMsg = error.message;
+				dispatch(
+					fetchViewAdmissionFailure(
+						errorMsg,
+					),
+				);
+			});
+	};
+};

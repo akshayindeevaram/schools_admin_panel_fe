@@ -1,97 +1,67 @@
-import React, {useEffect, useState} from 'react'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { connect } from 'react-redux'
-import { fetchViewAdmission } from '../../redux/admission/actions/viewAdmissionActions';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchViewUserAdmission } from '../../redux/useradmission/actions/viewUserAdmissionAction';
 import { useParams } from 'react-router-dom';
 
+function ViewUserAdmission({ viewUserAdmissionData, fetchViewUserAdmission }) {
+	const { id } = useParams();
 
+	const data = viewUserAdmissionData;
+	// console.log(data&&data,"gggggggggggggggggggggggggggggggggggggggg");
+	// console.log(viewUserAdmissionData,"viewwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+	// console.log(data,"uuuuuuuuuuuuuuuuuuuuuuuuuu");
 
-function ViewUserAdmission({viewAdmissionData, fetchViewAdmission}) {
-  const {id} =  useParams()
-const [userdetails, setuserdetails] = useState([])
-const data = viewAdmissionData;
-// console.log(data&&data,"gggggggggggggggggggggggggggggggggggggggg");
+	useEffect(() => {
+		fetchViewUserAdmission(id);
+	}, []);
 
-console.log("hai");
-function fetchuser(){
-   
-   const [datauser] =  data?.filter(item =>{
-    return item.id == id
+	// console.log(viewUserAdmissionData,"ccccccccccccccccccccccccc");
 
-  }
-   )
-  //  console.log(datauser,"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
-    setuserdetails(datauser);
-}
-
-useEffect(() => {
-    fetchViewAdmission()
-    fetchuser()
-  }, [])
-
-  // console.log(viewAdmissionData,"ccccccccccccccccccccccccc");
-
-  return (
-    <div className='viewuser'>
-       <TableContainer component={Paper}>
-      <Table >
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Phone number</TableCell>
-            <TableCell>Qualification</TableCell>
-            <TableCell>Result</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-
-            
-          {/* {viewAdmissionData?.map((row,id) => ( */}
-            <TableRow
-              // key={"row.id"}
-              // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              {/* <TableCell component="th" scope="row">
-                {userdetails.id}
-              </TableCell> */}
-              <TableCell>{userdetails?.id}</TableCell>
-              <TableCell>{userdetails?.name}</TableCell>
-              <TableCell>{userdetails?.phone_number}</TableCell>
-              <TableCell>{userdetails?.qualification}</TableCell>
-              <TableCell>{userdetails?.result}</TableCell>
-            </TableRow>
-          {/* ))} */}
-        </TableBody>
-      </Table>
-    </TableContainer>
- 
-    </div>
-  )
+	return (
+		<div className="viewuser">
+			{data &&
+				data.map((val, key) => {
+					return (
+						<div key={key}>
+							<h4>Admission id : {val.id}</h4>
+							<h4>Name : {val.name}</h4>
+							<h4>Phone number : {val.phone_number}</h4>
+							<h4>Qualification : {val.qualification}</h4>
+							{/* <h4>Result file : <img src="http://localhost:5000/1658816175299.jpg" alt="error"/></h4> */}
+							<h4>
+								Result file :{' '}
+								<img
+									src={`http://localhost:5000/${val.result}`}
+									alt="error"
+								/>
+							</h4>
+						</div>
+					);
+				})}
+		</div>
+	);
 }
 
 const mapStateToProps = (state) => {
-    console.log(state?.viewAdmission?.viewAdmission?.message,"55555555555555555555555555555555555555555555555555555");
-    console.log(state,"4444444444444");
-    
-    return {
-      viewAdmissionData:state?.viewAdmission?.viewAdmission?.message
-      
-     
-    }
-  }
-  
-  const mapDispatchToProps  = (dispatch)=> {
-   
-    return{
-      fetchViewAdmission:()=>dispatch(fetchViewAdmission())
-  }
-  }
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(ViewUserAdmission)
+	// console.log(ViewUserAdmission,"444444444444444--------------------");
+	// console.log(state?.viewUserAdmission?.viewUserAdmission?.message,"55555555555555555555555555555555555555555555555555555");
+	// console.log(state,"4444444444444");
+
+	return {
+		viewUserAdmissionData:
+			state?.viewUserAdmission?.viewUserAdmission?.message,
+	};
+};
+
+const mapDispatchToProps = {
+	fetchViewUserAdmission,
+};
+
+// const mapDispatchToProps  = (dispatch)=> {
+
+//   return{
+//     fetchViewUserAdmission:()=>dispatch(fetchViewUserAdmission())
+// }
+// }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewUserAdmission);
